@@ -1,0 +1,28 @@
+body {
+  transition: 2s ease-in-out;
+}
+
+.App {
+  display: grid;
+  min-height: 100vh;
+  width: 100vw;
+  grid-template: repeat(8, 1fr) / repeat(12, 1fr);
+  .sidebar {
+    grid-area: 1/1/9/4;
+    background-color: white;
+  }
+  .colourButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: darkslateblue;
+    height: 50px;
+    width: 100px;
+    background-color: white;
+    border: 1px solid darkslategray;
+    border-radius: 8px;
+    margin: auto;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
