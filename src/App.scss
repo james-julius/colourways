@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 @mixin flex-center {
   display: flex;
   align-items: center; 
@@ -13,18 +14,33 @@
 @mixin twelve-grid {
   display: grid;
   grid-template: repeat(12, 1fr) / repeat(12, 1fr);
-}
+}@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;1,400&display=swap');
+
 
 
 .App {
   @include twelve-grid;
   max-height: 100vh;
   width: 100vw;
+  font-family: 'Source Sans Pro', sans-serif;
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 30px auto 10px auto;
+  }
+  h2 {
+    margin: 10px auto;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+  }
   .sidebar {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     grid-area: 1/1/13/4;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     .colourButton {
       display: flex;
       align-items: center;
@@ -35,9 +51,22 @@
       background-color: white;
       border: 1px solid darkslategray;
       border-radius: 8px;
-      margin: auto;
+      margin: 20px auto;
       font-weight: bold;
       cursor: pointer;
+    }
+    .colourway {
+      height: 200px;
+      width: 80%;
+      margin: 20px auto;
+      .colorBar {
+        width: 100%;
+        margin: 10px auto;
+        border-radius: 8px;
+        height: 50px;
+        @include flex-center;
+        border: 1.5px solid lightgray;
+      }
     }
   }
   .main {
@@ -45,25 +74,25 @@
     transition: 2s ease;
     @include twelve-grid;
     .minisite {
-      background-color: white;
       grid-area: 2/3/12/8;
       @include twelve-grid;
       .nav {
         grid-area: 1/1/2/13;
-        background-color: crimson;
         display: inline-flex;
         justify-content: space-evenly;
         align-items: center;
+        .genericLogo {
+          font-size: 40px;
+        }
       }
       .section1 {
         display: flex;
         justify-content: space-between;
         align-items: center;
         grid-area: 3/2/6/12;
-        .content-block {
+        .contentBlock {
           height: 100%;
           width: 44%;
-          background-color: crimson;
         }
       }
       .section2 {
@@ -71,7 +100,6 @@
       }
       .footer {
         grid-area: 12/1/13/13;
-        background-color: rebeccapurple;
       }
     }
   }
