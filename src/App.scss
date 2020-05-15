@@ -71,7 +71,7 @@
   }
   .main {
     grid-area: 1/4/13/13;
-    transition: 2s ease;
+    // transition: 2s ease;
     @include twelve-grid;
     .minisite {
       grid-area: 2/3/12/8;
@@ -91,15 +91,49 @@
         align-items: center;
         grid-area: 3/2/6/12;
         .contentBlock {
+          @include flex-center;
           height: 100%;
           width: 44%;
         }
       }
       .section2 {
-
+        grid-area: 7/2/10/12;
       }
       .footer {
         grid-area: 12/1/13/13;
+        display: inline-flex;
+        justify-content: space-evenly;
+        font-size: 0.8rem;
+      }
+    }
+    .hslWheelContainer {
+      grid-area: 2/8/6/12;
+      @include flex-center;
+      .hslWheel {
+        background-image: url('./hslwheel.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 80%;
+        width: 80%;
+        margin: auto;
+        @include flex-center;
+        .handContainer {
+          height: 100%;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          position: relative;
+          .colourHandOne {
+            bottom: 50%;
+            left: calc(50% - 1px);
+            height: 47%;
+            width: 2px;
+            background-color: white;
+            border-radius: 2px;
+            position: absolute;
+          }
+        }
       }
     }
   }

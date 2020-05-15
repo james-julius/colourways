@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss';
+import hslWheel from './hslwheel.png';
 
 function App() {
   const [scheme, setScheme] = useState('monochromatic');
+  const [primaryHue, setPrimaryHue] = useState(0);
   const [primaryColor, setPrimaryColor] = useState({backgroundColor: 'crimson'});
   const [secondaryColor, setSecondaryColor] = useState({backgroundColor: 'rebeccapurple'});
   const [tertiaryColor, setTertiaryColor] = useState({backgroundColor: 'white'});
@@ -15,28 +17,37 @@ function App() {
     let r = Math.floor(Math.random() * 255);
     let g = Math.floor(Math.random() * 255);
     let b = Math.floor(Math.random() * 255);
-    document.getElementsByClassName('main')[0].style.backgroundColor = `rgb(${r},${g},${b})`;
+    document.getElementsByClassName('main')[0].style.backgroundColor = `rgba(${r},${g},${b}, 0.3)`;
   }
 
   const applyColorScheme = () => {
     if (scheme === 'monochromatic') {
       console.log('changing to a monochromatic style')
-      const primaryHue = Math.floor(Math.random()*360);
+      const hue = Math.floor(Math.random()*360);
+      setPrimaryHue(hue);
       const lightness = [
-        Math.floor(Math.random()*30)+.7,
-        Math.floor(Math.random()*50)+.2,
-        Math.floor(Math.random()*100)]
-      console.log(lightness)
-      setPrimaryColor({backgroundColor: hsla(primaryHue,'100%',lightness[0], 1)});
-      setSecondaryColor({backgroundColor: hsla(primaryHue,'100%',lightness[1], 1)});
-      setTertiaryColor({backgroundColor: hsla(primaryHue,'100%',lightness[2], 1)});
-      console.log([primaryColor, secondaryColor, tertiaryColor])
+        Math.floor(Math.random()*50)+25,
+        Math.floor(Math.random()*50),
+        Math.floor(Math.random()*20)+80];
+      console.log(lightness);
+      const primary = hsla(hue,'100%',lightness[0], 1);
+      const secondary = hsla(hue,'100%',lightness[1], 1);
+      const tertiary = hsla(hue,'100%',lightness[2], 1);
+      setPrimaryColor({
+        color: tertiary,
+        backgroundColor: primary
+      });
+      setSecondaryColor({
+        backgroundColor: secondary,
+        color: tertiary
+      });
+      setTertiaryColor({backgroundColor: tertiary});
     }
   }
 
   useEffect(() => {
     colourChanger();
-    setInterval(colourChanger, 10000);
+    setInterval(colourChanger, 5000);
     // colourChanger();
   }, []);
 
@@ -80,8 +91,29 @@ function App() {
           <span className="contentBlock" style={primaryColor}>Content Block</span>
           <span className="contentBlock" style={primaryColor}>Content Block</span>
         </div>
-        <div className="section2"/>
-        <div className="footer" style={secondaryColor}/>
+        <div className="section2">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+        sed do eiusmod tempor incididunt ut labore et dolore magna 
+        aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
+        ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </div>
+        <div className="footer" style={secondaryColor}>
+          <span className="footerSubContainer">
+            <p>Login</p>
+            <p>Sign Up</p>
+          </span>
+          <span className="footerSubContainer">
+            <p>Pricing</p>
+            <p>About us</p>
+          </span>
+        </div>
+      </div>
+      <div className="hslWheelContainer">
+        <div src={hslWheel} className="hslWheel">
+          <div className="handContainer" style={{transform: `rotate(${primaryHue}deg)`}}>
+            <span className="colourHandOne" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
