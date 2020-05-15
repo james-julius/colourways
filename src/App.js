@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.scss';
 import hslWheel from './hslwheel.png';
+import {convert as colorConvert } from 'color-convert';
 
 function App() {
   const [scheme, setScheme] = useState('monochromatic');
@@ -9,6 +10,7 @@ function App() {
   const [secondaryColor, setSecondaryColor] = useState({backgroundColor: 'rebeccapurple'});
   const [secondaryFontColor, setSecondaryFontColor] = useState({color: 'black'});
   const [tertiaryColor, setTertiaryColor] = useState({backgroundColor: 'white'});
+  const [colorFormat, setColorFormat] = useState('hsla');
 
   const hsla = (hue, saturation, lightness, opacity) => {
     return `hsla(${hue},${saturation}, ${lightness + '%'}, ${opacity})`;
@@ -19,6 +21,7 @@ function App() {
     let g = Math.floor(Math.random() * 255);
     let b = Math.floor(Math.random() * 255);
     document.getElementsByClassName('main')[0].style.backgroundColor = `rgba(${r},${g},${b}, 0.3)`;
+    document.getElementsByClassName('sidebar')[0].style.backgroundColor = `rgba(${r},${g},${b},1)`;
   }
 
   const applyColorScheme = () => {
@@ -57,27 +60,27 @@ function App() {
   <div className="App">
     <div className="sidebar">
       <h1>Colourways</h1>
-      <h2>The colour scheme generator for websites.</h2>
+      <h2>A colour scheme generator for websites.</h2>
       <select onChange={(event) => setScheme(event.target.value)}>
         <option value="monochromatic">Monochromatic</option>
         <option value="complementary">Complementary</option>
         <option value="triadic">Triadic</option>
       </select>
-      <div className="colourButton" onClick={applyColorScheme}>Click me</div>
+      <div className="colourButton" onClick={applyColorScheme}>Generate</div>
       <div className="colourway">
         <div className="colorBar" style={primaryColor}>
           <span>
-            Primary: 
+            {primaryColor.backgroundColor}
           </span>
         </div>
         <div className="colorBar" style={secondaryColor}>
           <span>
-            Secondary:
+            {secondaryColor.backgroundColor}
           </span>
         </div>
         <div className="colorBar" style={tertiaryColor}>
           <span>
-            Tertiary:
+            {tertiaryColor.backgroundColor}
           </span>
         </div>
       </div>
