@@ -1,28 +1,78 @@
-body {
-  transition: 2s ease-in-out;
+@mixin flex-center {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+}
+@mixin flex-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
 }
 
-.App {
+@mixin twelve-grid {
   display: grid;
-  min-height: 100vh;
+  grid-template: repeat(12, 1fr) / repeat(12, 1fr);
+}
+
+
+.App {
+  @include twelve-grid;
+  max-height: 100vh;
   width: 100vw;
-  grid-template: repeat(8, 1fr) / repeat(12, 1fr);
   .sidebar {
-    grid-area: 1/1/9/4;
-    background-color: white;
-  }
-  .colourButton {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: darkslateblue;
-    height: 50px;
-    width: 100px;
+    flex-direction: column;
+    grid-area: 1/1/13/4;
     background-color: white;
-    border: 1px solid darkslategray;
-    border-radius: 8px;
-    margin: auto;
-    font-weight: bold;
-    cursor: pointer;
+    .colourButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgb(2, 2, 3);
+      height: 50px;
+      width: 100px;
+      background-color: white;
+      border: 1px solid darkslategray;
+      border-radius: 8px;
+      margin: auto;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
+  .main {
+    grid-area: 1/4/13/13;
+    transition: 2s ease;
+    @include twelve-grid;
+    .minisite {
+      background-color: white;
+      grid-area: 2/3/12/8;
+      @include twelve-grid;
+      .nav {
+        grid-area: 1/1/2/13;
+        background-color: crimson;
+        display: inline-flex;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+      .section1 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        grid-area: 3/2/6/12;
+        .content-block {
+          height: 100%;
+          width: 44%;
+          background-color: crimson;
+        }
+      }
+      .section2 {
+
+      }
+      .footer {
+        grid-area: 12/1/13/13;
+        background-color: rebeccapurple;
+      }
+    }
   }
 }
