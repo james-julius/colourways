@@ -7,6 +7,7 @@ function App() {
   const [primaryHue, setPrimaryHue] = useState(0);
   const [primaryColor, setPrimaryColor] = useState({backgroundColor: 'crimson'});
   const [secondaryColor, setSecondaryColor] = useState({backgroundColor: 'rebeccapurple'});
+  const [secondaryFontColor, setSecondaryFontColor] = useState({color: 'black'});
   const [tertiaryColor, setTertiaryColor] = useState({backgroundColor: 'white'});
 
   const hsla = (hue, saturation, lightness, opacity) => {
@@ -41,6 +42,7 @@ function App() {
         backgroundColor: secondary,
         color: tertiary
       });
+      setSecondaryFontColor({color: secondary})
       setTertiaryColor({backgroundColor: tertiary});
     }
   }
@@ -91,7 +93,7 @@ function App() {
           <span className="contentBlock" style={primaryColor}>Content Block</span>
           <span className="contentBlock" style={primaryColor}>Content Block</span>
         </div>
-        <div className="section2">
+        <div className="section2" style={secondaryFontColor}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
         sed do eiusmod tempor incididunt ut labore et dolore magna 
         aliqua. Ut enim ad minim veniam, quis nostrud exercitation 

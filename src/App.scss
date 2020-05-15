@@ -54,6 +54,9 @@
       margin: 20px auto;
       font-weight: bold;
       cursor: pointer;
+      &:hover {
+        background-color: rgba(200,200,200,0.8);
+      }
     }
     .colourway {
       height: 200px;
