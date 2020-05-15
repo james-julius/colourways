@@ -36,6 +36,11 @@
     text-align: center;
     color: rgb(240,240,240);
   }
+  h3 {
+    color: white;
+    margin: 10px auto 5px auto;
+    text-align: center;
+  }
   .sidebar {
     display: flex;
     flex-direction: column;
@@ -50,7 +55,7 @@
       justify-content: center;
       color: rgb(2, 2, 3);
       height: 50px;
-      width: 100px;
+      width: 125px;
       background-color: white;
       border-radius: 5px;
       margin: 20px auto;
@@ -62,9 +67,56 @@
       }
     }
     .colourway {
-      height: 200px;
       width: 80%;
       margin: 20px auto;
+      .switch {
+        margin: 20px auto;
+        height: 120px;
+        .slider {
+          height: 30px;
+          width: 100%;
+          display: inline-flex;
+          justify-content: space-evenly;
+          position: relative;
+          .handleContainer {
+            @include flex-center;
+            height: 30px;
+            width: 25%;
+            cursor: pointer;
+            .handleoverlay {
+              height: 20px;
+              width: 20px;
+              background-color: white;
+              border-radius: 50%;
+              margin: auto;
+            }
+          }
+          .handle {
+            background-color: rgb(50,50,50);
+            border-radius: 50%;
+            height: 16px;
+            width: 16px;
+            position: absolute;
+            top: 7px;
+            left: calc(12.5% - 8px);
+            transition: 1s ease-in-out;
+          }
+        }
+        .options {
+          display: inline-flex;
+          flex-wrap: no-wrap;
+          justify-content: space-evenly;
+          height: 30px;
+          width: 100%;
+          font-weight: 600;
+          color: white;
+          p {
+            margin: 0px auto;
+            width: 25%;
+            text-align: center;
+          }
+        }
+      }
       .colorBar {
         width: 100%;
         margin: 10px auto;
@@ -81,6 +133,9 @@
     @include twelve-grid;
     .minisite {
       grid-area: 2/3/12/8;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 3px 4px rgba(80,80,80,0.4);
       @include twelve-grid;
       .nav {
         grid-area: 1/1/2/13;

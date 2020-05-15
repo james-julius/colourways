@@ -11,6 +11,32 @@ function App() {
   const [secondaryFontColor, setSecondaryFontColor] = useState({color: 'black'});
   const [tertiaryColor, setTertiaryColor] = useState({backgroundColor: 'white'});
   const [colorFormat, setColorFormat] = useState('hsla');
+  const [colorFormatHandlePosition, setColorFormatHandlePosition] = useState({});
+
+  const changeColorFormat = (format) => {
+    console.log(format)
+    console.log('format change called with format: ' + format)
+    let leftValue;
+    switch (format) {
+      case 'hsla':
+        leftValue = 'calc(12.5%-8px)';
+        break;
+      case 'rgb': 
+        leftValue = 'calc(37.5%-8px)';
+        break;
+      case 'cmyk':
+        leftValue = 'calc(62.5%-8px)';
+        break;
+      case 'hex':
+        leftValue = 'calc(97.5%-8px)';
+        break;
+    }
+    console.log(leftValue)
+    setColorFormatHandlePosition({
+      position: 'absolute',
+      left: leftValue
+    });
+  }
 
   const hsla = (hue, saturation, lightness, opacity) => {
     return `hsla(${hue},${saturation}, ${lightness + '%'}, ${opacity})`;
@@ -68,14 +94,36 @@ function App() {
       </select>
       <div className="colourButton" onClick={applyColorScheme}>Generate</div>
       <div className="colourway">
-        <div className="colorBar" style={primaryColor}>
-          <span>
+        <h3>Format:</h3>
+        <span className="switch" onClick={changeColorFormat}>
+          <div className="slider">
+            <div className="handleContainer" onClick={() => changeColorFormat('hsla')}>
+              <div className="handleoverlay"/>
+            </div>
+            <div className="handleContainer" onClick={() => changeColorFormat('rgb')}>
+              <div className="handleoverlay"/>
+            </div>
+            <div className="handleContainer" onClick={() => changeColorFormat('cmyk')}>
+              <div className="handleoverlay"/>
+            </div>
+            <div className="handleContainer" onClick={() => changeColorFormat('hex')}>
+              <div className="handleoverlay"/>
+            </div>
+            <div className="handle" style={colorFormatHandlePosition}/>
+          </div>
+          <div className="options">
+            <p>HSL</p>
+            <p>RGB</p>
+            <p>CMYK</p>
+            <p>HEX</p>
+          </div>
+        </span>
+        <div className="colorBar" style={primaryColor} onClick={() => console.log('single clicked')} onDoubleClick={() => {console.log('double clicked')}}>
             {primaryColor.backgroundColor}
-          </span>
         </div>
         <div className="colorBar" style={secondaryColor}>
           <span>
-            {secondaryColor.backgroundColor}
+            {secondaryColor.backgroundColor} 
           </span>
         </div>
         <div className="colorBar" style={tertiaryColor}>
