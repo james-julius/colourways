@@ -18,8 +18,8 @@ function App() {
   const secondaryRef = useRef();
   const tertiaryRef = useRef();
   
-  const handleCopy = (inputRef) => {
-    navigator.clipboard.writeText(inputRef.current.innerHTML);
+  const handleCopy = (inputRef, refIndex) => {
+    navigator.clipboard.writeText(handleColorFormat(currentColors[refIndex]));
     inputRef.current.innerHTML = 'Copied!'
   }
 
@@ -167,14 +167,14 @@ function App() {
           style={primaryColor} 
           onMouseEnter={() => handleMouseEnter(primaryRef)} 
           onMouseLeave={() => handleMouseLeave(primaryRef,0)} 
-          onDoubleClick={() => handleCopy(primaryRef)}>
+          onDoubleClick={() => handleCopy(primaryRef, 0)}>
             {handleColorFormat(primaryColor.backgroundColor)}
         </div>
         <div className="colorBar" ref={secondaryRef} 
           style={secondaryColor} 
           onMouseEnter={() => handleMouseEnter(secondaryRef)} 
           onMouseLeave={() => handleMouseLeave(secondaryRef,1)} 
-          onDoubleClick={() => handleCopy(secondaryRef)}>
+          onDoubleClick={() => handleCopy(secondaryRef, 1)}>
           <span>
             {handleColorFormat(secondaryColor.backgroundColor)} 
           </span>
@@ -183,7 +183,7 @@ function App() {
           style={tertiaryColor} 
           onMouseEnter={() => handleMouseEnter(tertiaryRef)} 
           onMouseLeave={() => handleMouseLeave(tertiaryRef,2)} 
-          onDoubleClick={() => handleCopy(tertiaryRef)}>
+          onDoubleClick={() => handleCopy(tertiaryRef, 2)}>
           <span>
             {handleColorFormat(tertiaryColor.backgroundColor)}
           </span>
