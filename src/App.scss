@@ -16,7 +16,9 @@
   grid-template: repeat(12, 1fr) / repeat(12, 1fr);
 }@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;1,400&display=swap');
 
-
+.sidebar, h1, h2, h3, p {
+  transition: 15s ease;
+}
 
 .App {
   @include twelve-grid;
@@ -47,7 +49,6 @@
     align-items: center;
     justify-content: flex-start;
     grid-area: 1/1/13/4;
-    transition: 2s ease;
     background-color: rgb(255, 255, 255);
     .colourButton {
       display: flex;
@@ -99,7 +100,7 @@
             position: absolute;
             top: 7px;
             left: calc(12.5% - 8px);
-            transition: 1s ease-in-out;
+            transition: .6s ease-in-out;
           }
         }
         .options {
@@ -124,6 +125,7 @@
         height: 50px;
         @include flex-center;
         border: 1.5px solid lightgray;
+        cursor: pointer;
       }
     }
   }
