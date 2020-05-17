@@ -181,24 +181,37 @@
         height: 80%;
         width: 80%;
         margin: auto;
+        z-index: 0;
+        position: relative;
         @include flex-center;
-        .handContainer {
-          height: 100%;
-          width: 100%;
-          margin: 0;
-          padding: 0;
-          position: relative;
-          .colourHandOne {
-            bottom: 50%;
-            left: calc(50% - 1px);
-            height: 47%;
-            width: 2px;
-            background-color: rgba(50,50,50,0.5);
-            border-radius: 2px;
-            position: absolute;
-          }
-        }
+        
       }
+    }
+    .handContainer, .handContainerTwo, .handContainerThree {
+      height: 80%;
+      width: 80%;
+      margin: auto;
+      padding: 0;
+      grid-area: 2/8/6/12;
+      position: relative;
+      .colourHandOne, .colourHandTwo, .colourHandThree {
+        bottom: 50%;
+        left: calc(50% - 1px);
+        height: 47%;
+        width: 2px;
+        background-color: rgba(50,50,50,0.5);
+        border-radius: 2px;
+        position: absolute;
+      }
+    }
+    .handContainer {
+      z-index: 1;
+    }
+    .handContainerTwo {
+      z-index: 2
+    }
+    .handContainerThree {
+      z-index: 3;
     }
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.scss';
 import hslWheel from './hslwheel.png';
 import convert from 'color-convert';
@@ -6,6 +6,8 @@ import convert from 'color-convert';
 function App() {
   const [scheme, setScheme] = useState('monochromatic');
   const [primaryHue, setPrimaryHue] = useState(0);
+  const [secondHandStyle, setSecondHandStyle] = useState({display: 'none'});
+  const [thirdHandStyle, setThirdHandStyle] = useState({display: 'none'});
   const [primaryColor, setPrimaryColor] = useState({backgroundColor: 'crimson'});
   const [secondaryColor, setSecondaryColor] = useState({backgroundColor: 'rebeccapurple'});
   const [secondaryFontColor, setSecondaryFontColor] = useState({color: 'black'});
@@ -79,6 +81,7 @@ function App() {
     setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
     setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
     setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
+    //eslint-disable-next-line
   }, [colorFormat]);
 
 
@@ -171,11 +174,12 @@ function App() {
     if (scheme === 'complementary') {
       console.log('changing to a monochromatic style')
       let hue = Math.floor(Math.random()*360);
-        const hueOne = hue <= 30 ? hue -30 + 360 : hue - 30;
-        const hueTwo = hue;
+        const hueOne = hue;
+        const hueTwo = hue <= 30 ? hue -30 + 360 : hue - 30;
         const hueThree = hue >= 330 ? hue + 30 -360 : hue + 30;
-      
       setPrimaryHue(hue);
+      setSecondHandStyle({display: 'block', transform: `rotate(${hueTwo}deg)`});
+      setThirdHandStyle({display: 'block', transform: `rotate(${hueThree}deg)`});
       const lightness = [
         Math.floor(Math.random()*50)+25,
         Math.floor(Math.random()*50),
@@ -201,11 +205,12 @@ function App() {
     if (scheme === 'triadic') {
       console.log('changing to a monochromatic style')
       let hue = Math.floor(Math.random()*360);
-        const hueOne = hue <= 120 ? hue -120 + 360 : hue - 120;
-        const hueTwo = hue;
+        const hueOne = hue;
+        const hueTwo = hue <= 120 ? hue -120 + 360 : hue - 120;
         const hueThree = hue >= 240 ? hue + 120 -360 : hue + 120;
-      
       setPrimaryHue(hue);
+      setSecondHandStyle({display: 'block', transform: `rotate(${hueTwo}deg)`});
+      setThirdHandStyle({display: 'block', transform: `rotate(${hueThree}deg)`});
       const lightness = [
         Math.floor(Math.random()*50)+25,
         Math.floor(Math.random()*50),
@@ -328,11 +333,16 @@ function App() {
         </div>
       </div>
       <div className="hslWheelContainer">
-        <div src={hslWheel} className="hslWheel">
-          <div className="handContainer" style={{transform: `rotate(${primaryHue}deg)`}}>
-            <span className="colourHandOne" />
-          </div>
-        </div>
+        <span src={hslWheel} className="hslWheel"/>
+      </div>
+      <div className="handContainer" style={{transform: `rotate(${primaryHue}deg)`}}>
+        <span className="colourHandOne" />
+      </div>
+      <div className="handContainerTwo" style={secondHandStyle}>
+        <span className="colourHandTwo" />
+      </div>
+      <div className="handContainerThree" style={thirdHandStyle}>
+        <span className="colourHandThree" />
       </div>
     </div>
   </div>
