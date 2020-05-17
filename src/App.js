@@ -168,6 +168,66 @@ function App() {
       setSecondaryFontColor({color: secondary})
       setTertiaryColor({backgroundColor: tertiary});
     }
+    if (scheme === 'complementary') {
+      console.log('changing to a monochromatic style')
+      let hue = Math.floor(Math.random()*360);
+        const hueOne = hue <= 30 ? hue -30 + 360 : hue - 30;
+        const hueTwo = hue;
+        const hueThree = hue >= 330 ? hue + 30 -360 : hue + 30;
+      
+      setPrimaryHue(hue);
+      const lightness = [
+        Math.floor(Math.random()*50)+25,
+        Math.floor(Math.random()*50),
+        Math.floor(Math.random()*20)+80];
+      console.log(lightness);
+      const [primary,secondary,tertiary] = [hsl(hueOne,'100%',lightness[0]),hsl(hueTwo,'100%',lightness[1]),hsl(hueThree,'100%',lightness[2])];
+      console.log([primary,secondary,tertiary]);
+      setCurrentColors([primary,secondary,tertiary]);
+      setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
+      setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
+      setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
+      setPrimaryColor({
+        color: tertiary,
+        backgroundColor: primary
+      });
+      setSecondaryColor({
+        backgroundColor: secondary,
+        color: tertiary
+      });
+      setSecondaryFontColor({color: secondary})
+      setTertiaryColor({backgroundColor: tertiary});
+    }
+    if (scheme === 'triadic') {
+      console.log('changing to a monochromatic style')
+      let hue = Math.floor(Math.random()*360);
+        const hueOne = hue <= 120 ? hue -120 + 360 : hue - 120;
+        const hueTwo = hue;
+        const hueThree = hue >= 240 ? hue + 120 -360 : hue + 120;
+      
+      setPrimaryHue(hue);
+      const lightness = [
+        Math.floor(Math.random()*50)+25,
+        Math.floor(Math.random()*50),
+        Math.floor(Math.random()*20)+80];
+      console.log(lightness);
+      const [primary,secondary,tertiary] = [hsl(hueOne,'100%',lightness[0]),hsl(hueTwo,'100%',lightness[1]),hsl(hueThree,'100%',lightness[2])];
+      console.log([primary,secondary,tertiary]);
+      setCurrentColors([primary,secondary,tertiary]);
+      setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
+      setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
+      setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
+      setPrimaryColor({
+        color: tertiary,
+        backgroundColor: primary
+      });
+      setSecondaryColor({
+        backgroundColor: secondary,
+        color: tertiary
+      });
+      setSecondaryFontColor({color: secondary})
+      setTertiaryColor({backgroundColor: tertiary});
+    }
   }
 
   useEffect(() => {
