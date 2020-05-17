@@ -127,6 +127,14 @@
         @include flex-center;
         border: 1.5px solid lightgray;
         cursor: pointer;
+        position: relative;
+        .lockIcon {
+          height: 26px;
+          width: 26px;
+          position: absolute;
+          right: 10%;
+          top: calc(50% - 13px);
+        }
       }
     }
   }
@@ -194,9 +202,9 @@
       position: relative;
       .colourHandOne, .colourHandTwo, .colourHandThree {
         bottom: 50%;
-        left: calc(50% - 1px);
+        left: calc(50% - 1.2px);
         height: 48%;
-        width: 2px;
+        width: 2.4px;
         background-color: rgba(50,50,50,0.5);
         border-radius: 2px;
         position: absolute;

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.scss';
 import hslWheel from './hslwheel.png';
 import convert from 'color-convert';
+import openLockIcon from './lockOpen.svg';
+import lockShutIcon from './lockShut.svg';
 
 function App() {
   const [scheme, setScheme] = useState('monochromatic');
@@ -12,7 +14,6 @@ function App() {
   const [secondaryColor, setSecondaryColor] = useState({backgroundColor: 'rebeccapurple'});
   const [secondaryFontColor, setSecondaryFontColor] = useState({color: 'black'});
   const [tertiaryColor, setTertiaryColor] = useState({backgroundColor: 'white'});
-  const [currentColors, setCurrentColors] = useState([primaryColor.backgroundColor, secondaryColor.backgroundColor, tertiaryColor.backgroundColor]);
   const [colorFormat, setColorFormat] = useState('hsl');
   const [colorFormatHandlePosition, setColorFormatHandlePosition] = useState({});
   const [dynamicTextColor, setDynamicTextColor] = useState({color: 'black'});
@@ -22,6 +23,7 @@ function App() {
   const [colorBarOne, setColorBarOne] = useState('crimson');
   const [colorBarTwo, setColorBarTwo] = useState('rebeccapurple');
   const [colorBarThree, setColorBarThree] = useState('white');
+  const [colorBarLocks, setColorBarLocks] = useState([false, false, false]); 
 
   // Helper function for changeColorFormat - handles format writing style in Colorbars of HSL/HEX/RGB/CMYK
   const handleColorFormat = (inputHsl) => {
@@ -100,15 +102,17 @@ function App() {
   }
 
   const handleCopy = (refIndex) => {
-    navigator.clipboard.writeText(handleColorFormat(currentColors[refIndex]));
     switch (refIndex) {
       case (0): 
+      navigator.clipboard.writeText(handleColorFormat(primaryColor.backgroundColor));
       setColorBarOne('Copied!')
       break;
       case (1): 
+      navigator.clipboard.writeText(handleColorFormat(secondaryColor.backgroundColor));
       setColorBarTwo('Copied!')
       break;
       case (2): 
+      navigator.clipboard.writeText(handleColorFormat(tertiaryColor.backgroundColor));
       setColorBarThree('Copied!')
       break;
       default: break;
@@ -146,9 +150,11 @@ function App() {
 
   const applyColorScheme = () => {
     if (scheme === 'monochromatic') {
-      console.log('changing to a monochromatic style')
+      console.log('changing to monochromatic')
       const hue = Math.floor(Math.random()*360);
       setPrimaryHue(hue);
+      setSecondHandStyle({display: 'none'});
+      setThirdHandStyle({display: 'none'});
       const lightness = [
         Math.floor(Math.random()*50)+25,
         Math.floor(Math.random()*50),
@@ -156,81 +162,251 @@ function App() {
       console.log(lightness);
       const [primary,secondary,tertiary] = [hsl(hue,'100%',lightness[0]),hsl(hue,'100%',lightness[1]),hsl(hue,'20%',lightness[2])];
       console.log([primary,secondary,tertiary]);
-      setCurrentColors([primary,secondary,tertiary]);
-      setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
-      setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
-      setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
-      setPrimaryColor({
-        color: tertiary,
-        backgroundColor: primary
-      });
-      setSecondaryColor({
-        backgroundColor: secondary,
-        color: tertiary
-      });
-      setSecondaryFontColor({color: secondary})
-      setTertiaryColor({backgroundColor: tertiary});
+      if (!colorBarLocks[0]) {
+        setColorBarOne(handleColorFormat(primaryColor.backgroundColor))
+        setPrimaryColor({
+          backgroundColor: primary,
+          color: tertiary
+        });
+      }
+      if (!colorBarLocks[1]) {
+        setSecondaryColor({
+          backgroundColor: secondary,
+          color: tertiary
+        });
+        setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
+        setSecondaryFontColor({color: secondary});
+      }
+      if (!colorBarLocks[1]) {
+        setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
+        setPrimaryColor({
+          backgroundColor: primary,
+          color: tertiary
+        })
+        setTertiaryColor({backgroundColor: tertiary});
+      }
     }
-    if (scheme === 'complementary') {
-      console.log('changing to a monochromatic style')
+    if (scheme === 'analogous') {
+      console.log('changing to analogous')
       let hue = Math.floor(Math.random()*360);
-        const hueOne = hue;
-        const hueTwo = hue <= 180 ? hue + 180 : hue - 180;
+      const hueOne = hue;
+      const hueTwo = hue <= 30 ? hue -30 + 360 : hue - 30;
+      const hueThree = hue >= 330 ? hue + 30 -360 : hue + 30;
       setPrimaryHue(hue);
-      setSecondHandStyle({display: 'block', transform: `rotate(${hueTwo}deg)`});
-      // setThirdHandStyle({display: 'block', transform: `rotate(${hueThree}deg)`});
+      if (!colorBarLocks[1]) {setSecondHandStyle({display: 'block', transform: `rotate(${hueTwo}deg)`})}
+      if (!colorBarLocks[2]) {setThirdHandStyle({display: 'block', transform: `rotate(${hueThree}deg)`})}
       const lightness = [
         Math.floor(Math.random()*50)+25,
         Math.floor(Math.random()*50),
         Math.floor(Math.random()*20)+80];
       console.log(lightness);
-      const [primary,secondary,tertiary] = [hsl(hueOne,'100%',lightness[0]),hsl(hueTwo,'100%',lightness[1]),hsl(hueOne,'20%',lightness[2])];
+      const [primary,secondary,tertiary] = [hsl(hueOne,'100%',lightness[0]),hsl(hueTwo,'100%',lightness[1]),hsl(hueThree,'100%',lightness[2])];
       console.log([primary,secondary,tertiary]);
-      setCurrentColors([primary,secondary,tertiary]);
-      setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
-      setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
-      setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
-      setPrimaryColor({
-        color: tertiary,
-        backgroundColor: primary
-      });
-      setSecondaryColor({
-        backgroundColor: secondary,
+      
+      if (!colorBarLocks[0]) {
+        setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
+        setPrimaryColor({
+        backgroundColor: primary,
         color: tertiary
-      });
-      setSecondaryFontColor({color: secondary})
-      setTertiaryColor({backgroundColor: tertiary});
+        });
+      }
+    
+      if (!colorBarLocks[1]) {
+        setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
+        setSecondaryFontColor({color: secondary})
+        setSecondaryColor({
+          backgroundColor: secondary,
+          color: tertiary
+        });
+      }
+
+      if (!colorBarLocks[2]) {
+        setTertiaryColor({backgroundColor: tertiary});
+        setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
+      }
+    }if (scheme === 'double analogous') {
+      console.log('changing to double analogous')
+      let hue = Math.floor(Math.random()*360);
+      const hueOne = hue;
+      const hueTwo = hue <= 60 ? hue -60 + 360 : hue - 60;
+      const hueThree = hue >= 300 ? hue + 60 -360 : hue + 60;
+      setPrimaryHue(hue);
+      if (!colorBarLocks[1]) {setSecondHandStyle({display: 'block', transform: `rotate(${hueTwo}deg)`})}
+      if (!colorBarLocks[2]) {setThirdHandStyle({display: 'block', transform: `rotate(${hueThree}deg)`})}
+      const lightness = [
+        Math.floor(Math.random()*50)+25,
+        Math.floor(Math.random()*50),
+        Math.floor(Math.random()*20)+80];
+      console.log(lightness);
+      const [primary,secondary,tertiary] = [hsl(hueOne,'100%',lightness[0]),hsl(hueTwo,'100%',lightness[1]),hsl(hueThree,'100%',lightness[2])];
+      console.log([primary,secondary,tertiary]);
+      
+      if (!colorBarLocks[0]) {
+        setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
+        setPrimaryColor({
+        backgroundColor: primary,
+        color: tertiary
+        });
+      }
+    
+      if (!colorBarLocks[1]) {
+        setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
+        setSecondaryFontColor({color: secondary})
+        setSecondaryColor({
+          backgroundColor: secondary,
+          color: tertiary
+        });
+      }
+
+      if (!colorBarLocks[2]) {
+        setTertiaryColor({backgroundColor: tertiary});
+        setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
+      }
+    }
+    if (scheme === 'triple analogous') {
+      console.log('changing to triple analogous')
+      let hue = Math.floor(Math.random()*360);
+      const hueOne = hue;
+      const hueTwo = hue <= 90 ? hue -90 + 360 : hue - 90;
+      const hueThree = hue >= 270 ? hue + 90 -360 : hue + 90;
+      setPrimaryHue(hue);
+      if (!colorBarLocks[1]) {setSecondHandStyle({display: 'block', transform: `rotate(${hueTwo}deg)`})}
+      if (!colorBarLocks[2]) {setThirdHandStyle({display: 'block', transform: `rotate(${hueThree}deg)`})}
+      const lightness = [
+        Math.floor(Math.random()*50)+25,
+        Math.floor(Math.random()*50),
+        Math.floor(Math.random()*20)+80];
+      console.log(lightness);
+      const [primary,secondary,tertiary] = [hsl(hueOne,'100%',lightness[0]),hsl(hueTwo,'100%',lightness[1]),hsl(hueThree,'100%',lightness[2])];
+      console.log([primary,secondary,tertiary]);
+      
+      if (!colorBarLocks[0]) {
+        setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
+        setPrimaryColor({
+        backgroundColor: primary,
+        color: tertiary
+        });
+      }
+    
+      if (!colorBarLocks[1]) {
+        setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
+        setSecondaryFontColor({color: secondary})
+        setSecondaryColor({
+          backgroundColor: secondary,
+          color: tertiary
+        });
+      }
+
+      if (!colorBarLocks[2]) {
+        setTertiaryColor({backgroundColor: tertiary});
+        setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
+      }
+    }
+    if (scheme === 'complementary') {
+      console.log('changing to complementary')
+      let hue = Math.floor(Math.random()*360);
+      const hueOne = hue;
+      const hueTwo = hue <= 180 ? hue + 180 : hue - 180;
+      setPrimaryHue(hue);
+      if (!colorBarLocks[1]) {setSecondHandStyle({display: 'block', transform: `rotate(${hueTwo}deg)`})}
+      if (!colorBarLocks[2]) {setThirdHandStyle({display: 'none'})};
+      // setThirdHandStyle({display: 'block', transform: `rotate(${hueThree}deg)`});
+      const lightness = [
+        Math.floor(Math.random()*50)+25,
+        Math.floor(Math.random()*50),
+        Math.floor(Math.random()*20)+80];
+      // console.log(lightness);
+      const [primary,secondary,tertiary] = [hsl(hueOne,'100%',lightness[0]),hsl(hueTwo,'100%',lightness[1]),hsl(hueOne,'20%',lightness[2])];
+      // console.log([primary,secondary,tertiary]);
+      if (!colorBarLocks[0]) {
+        setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
+        setPrimaryColor({
+          color: tertiary,
+          backgroundColor: primary
+        });
+      }
+      if (!colorBarLocks[1]) { 
+        setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
+        setSecondaryFontColor({color: secondary});
+        setSecondaryColor({
+          backgroundColor: secondary,
+          color: tertiary
+        });
+      }
+      if (!colorBarLocks[2]) {
+        setTertiaryColor({backgroundColor: tertiary});
+        setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
+      }
     }
     if (scheme === 'triadic') {
-      console.log('changing to a monochromatic style')
+      console.log('changing to triadic')
       let hue = Math.floor(Math.random()*360);
-        const hueOne = hue;
-        const hueTwo = hue <= 120 ? hue -120 + 360 : hue - 120;
-        const hueThree = hue >= 240 ? hue + 120 -360 : hue + 120;
-      setPrimaryHue(hue);
-      setSecondHandStyle({display: 'block', transform: `rotate(${hueTwo}deg)`});
-      setThirdHandStyle({display: 'block', transform: `rotate(${hueThree}deg)`});
+      const hueOne = hue;
+      const hueTwo = hue <= 120 ? hue -120 + 360 : hue - 120;
+      const hueThree = hue >= 240 ? hue + 120 -360 : hue + 120;
+      if (!colorBarLocks[1]) {setPrimaryHue(hue)}
+      if (!colorBarLocks[1]) {setSecondHandStyle({display: 'block', transform: `rotate(${hueTwo}deg)`})}
+      if (!colorBarLocks[1]) {setThirdHandStyle({display: 'block', transform: `rotate(${hueThree}deg)`})}
       const lightness = [
         Math.floor(Math.random()*50)+25,
         Math.floor(Math.random()*50),
         Math.floor(Math.random()*10)+90];
       console.log(lightness);
-      const [primary,secondary,tertiary] = [hsl(hueOne,'100%',lightness[0]),hsl(hueTwo,'100%',lightness[1]),hsl(hueThree,'20%',lightness[2])];
+      const [primary,secondary,tertiary] = [hsl(hueOne,'100%',lightness[0]),hsl(hueTwo,'100%',lightness[1]),hsl(hueThree,'40%',lightness[2])];
       console.log([primary,secondary,tertiary]);
-      setCurrentColors([primary,secondary,tertiary]);
-      setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
-      setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
-      setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
-      setPrimaryColor({
-        color: tertiary,
-        backgroundColor: primary
-      });
-      setSecondaryColor({
-        backgroundColor: secondary,
-        color: tertiary
-      });
-      setSecondaryFontColor({color: secondary})
-      setTertiaryColor({backgroundColor: tertiary});
+      if (!colorBarLocks[0]) {
+        setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
+        setPrimaryColor({
+          backgroundColor: primary
+        });
+      }
+      if (!colorBarLocks[1]) {
+        setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
+        setSecondaryFontColor({color: secondary});
+        setSecondaryColor({
+          backgroundColor: secondary,
+          color: tertiary
+        });
+      }
+      if (!colorBarLocks[2]) {
+        setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
+        setTertiaryColor({backgroundColor: tertiary});
+      } 
+    }
+    if (scheme === 'random') {
+      console.log('changing to random')
+      const hueOne = Math.floor(Math.random()*360);
+      const hueTwo = Math.floor(Math.random()*360);
+      const hueThree = Math.floor(Math.random()*360);
+      setPrimaryHue(hueOne);
+      if (!colorBarLocks[1]) {setSecondHandStyle({display: 'block', transform: `rotate(${hueTwo}deg)`})}
+      if (!colorBarLocks[2]) {setThirdHandStyle({display: 'block', transform: `rotate(${hueThree}deg)`})}
+      const lightness = [
+        Math.floor(Math.random()*50)+25,
+        Math.floor(Math.random()*50),
+        Math.floor(Math.random()*10)+90];
+      // console.log(lightness);
+      const [primary,secondary,tertiary] = [hsl(hueOne,'100%',lightness[0]),hsl(hueTwo,'100%',lightness[1]),hsl(hueThree,'40%',lightness[2])];
+      // console.log([primary,secondary,tertiary]);
+      
+      if (!colorBarLocks[0]) {
+        setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
+        setPrimaryColor({
+          backgroundColor: primary
+        });
+      }
+      if (!colorBarLocks[1]) {
+        setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
+        setSecondaryFontColor({color: secondary})
+        setSecondaryColor({
+          backgroundColor: secondary,
+          color: tertiary
+        });
+      }
+      if (!colorBarLocks[2]) {
+        setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
+        setTertiaryColor({backgroundColor: tertiary});
+      }
     }
   }
 
@@ -249,6 +425,10 @@ function App() {
         <option value="monochromatic">Monochromatic</option>
         <option value="complementary">Complementary</option>
         <option value="triadic">Triadic</option>
+        <option value="analogous">Analogous</option>
+        <option value="double analogous">Doubled Analogous</option>
+        <option value="triple analogous">Tripled Analogous</option>
+        <option value="random">Random</option>
       </select>
       <div className="colourButton" onClick={applyColorScheme}>Generate</div>
       <div className="colourway">
@@ -282,6 +462,7 @@ function App() {
           onMouseLeave={() => handleMouseLeave(0)} 
           onDoubleClick={() => handleCopy(0)}>
             {colorBarOne}
+            <img className="lockIcon" alt={colorBarLocks[0] ? 'Locked' : 'Changeable'} src={colorBarLocks[0] ? lockShutIcon: openLockIcon} onClick={() => setColorBarLocks([!colorBarLocks[0], colorBarLocks[1], colorBarLocks[2]])}/>
         </div>
         <div className="colorBar" ref={secondaryRef} 
           style={secondaryColor} 
@@ -290,6 +471,7 @@ function App() {
           onDoubleClick={() => handleCopy(1)}>
           <span>
             {colorBarTwo} 
+            <img className="lockIcon" alt={colorBarLocks[1] ? 'Locked' : 'Changeable'} src={colorBarLocks[1] ? lockShutIcon : openLockIcon} onClick={() => setColorBarLocks([colorBarLocks[0], !colorBarLocks[1], colorBarLocks[2]])}/>
           </span>
         </div>
         <div className="colorBar" ref={tertiaryRef} 
@@ -299,6 +481,7 @@ function App() {
           onDoubleClick={() => handleCopy(2)}>
           <span>
             {colorBarThree}
+            <img className="lockIcon" alt={colorBarLocks[2] ? 'Locked' : 'Changeable'} src={colorBarLocks[2] ? lockShutIcon : openLockIcon} onClick={() => setColorBarLocks([colorBarLocks[0], colorBarLocks[1], !colorBarLocks[2]])}/>
           </span>
         </div>
       </div>
