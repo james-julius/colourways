@@ -61,6 +61,7 @@
       border-radius: 5px;
       margin: 20px auto;
       font-weight: bold;
+      border: 2px solid rgba(50,50,50,0.5);
       cursor: pointer;
       &:hover {
         transition: 0.1s;
@@ -192,7 +193,7 @@
             left: calc(50% - 1px);
             height: 47%;
             width: 2px;
-            background-color: white;
+            background-color: rgba(50,50,50,0.5);
             border-radius: 2px;
             position: absolute;
           }

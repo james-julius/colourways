@@ -17,24 +17,33 @@ function App() {
   const primaryRef = useRef();
   const secondaryRef = useRef();
   const tertiaryRef = useRef();
-  
-  const handleCopy = (inputRef, refIndex) => {
-    navigator.clipboard.writeText(handleColorFormat(currentColors[refIndex]));
-    inputRef.current.innerHTML = 'Copied!'
-  }
+  const [colorBarOne, setColorBarOne] = useState('crimson');
+  const [colorBarTwo, setColorBarTwo] = useState('rebeccapurple');
+  const [colorBarThree, setColorBarThree] = useState('white');
 
-  const handleMouseEnter = (inputRef) => {
-    console.log(inputRef)
-    inputRef.current.innerHTML = 'Double click to copy.';
-  }
-  const handleMouseLeave = (inputRef, refIndex) => {
-    console.log(currentColors)
-    console.log('REFINDEX: ',refIndex);
-    console.log(currentColors[refIndex])
-    inputRef.current.innerHTML = handleColorFormat(currentColors[refIndex]);
-  }
+  // Helper function for changeColorFormat - handles format writing style in Colorbars of HSL/HEX/RGB/CMYK
+  const handleColorFormat = (inputHsl) => {
+    console.log(inputHsl)
+    // Function is called on render
+    console.log('INPUT HSL: ', inputHsl);
+    console.log(colorFormat)
+    const hslArr = inputHsl.slice(5, inputHsl.length -1).replace(/%/g, '').split`,`.map(str => +str);
+    if (colorFormat === 'hsl') {
+      return inputHsl}
+    if (colorFormat === 'rgb') {
+      let [r,g,b] = convert.hsl.rgb(hslArr);
+      return `rgb(${r},${g},${b})`}
+    if (colorFormat === 'cmyk') {
+      let [c,m,y,k] = convert.hsl.cmyk(hslArr);
+      return `cmyk(${c},${m},${y},${k})`}
+    if (colorFormat === 'hex') {
+      // console.log(convert.hsl.hex)
+      return '#' + convert.hsl.hex(hslArr)}
+      
+  };
 
-  const changeColorFormat = useCallback((format) => {
+  // Actual format change handler - uses helper function and moves switch handle position
+  const changeColorFormat = (format) => {
     // Animating the slider switch to the selected format
     // Syntax change is handled by the below function, that returns directly to the element.
     let leftValue;
@@ -55,31 +64,23 @@ function App() {
         setColorFormat('hex');
         leftValue = 'calc(87.5% - 8px)';
         break;
+      default:
+        break;
     }
     // console.log(leftValue)
     setColorFormatHandlePosition({
       position: 'absolute',
       left: leftValue
     });
+  };
+
+  useEffect(() => {
+    console.log('updating colour bars')
+    setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
+    setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
+    setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
   }, [colorFormat]);
 
-  const handleColorFormat = useCallback((inputHsl) => {
-    // Function is called on render
-    // console.log('INPUT HSL: ', inputHsl);
-    // console.log(colorFormat)
-    const hslArr = inputHsl.slice(5, inputHsl.length -1).replace(/%/g, '').split`,`.map(str => +str);
-    if (colorFormat === 'hsl') {
-      return inputHsl}
-    if (colorFormat === 'rgb') {
-      let [r,g,b] = convert.hsl.rgb(hslArr);
-      return `rgb(${r},${g},${b})`}
-    if (colorFormat === 'cmyk') {
-      let [c,m,y,k] = convert.hsl.cmyk(hslArr);
-      return `cmyk(${c},${m},${y},${k})`}
-    if (colorFormat === 'hex') {
-      // console.log(convert.hsl.hex)
-      return '#' + convert.hsl.hex(hslArr)}
-  }, [colorFormat]);
 
   const hsl = (hue, saturation, lightness) => {
     return `hsl(${hue},${saturation}, ${lightness + '%'})`;
@@ -95,6 +96,51 @@ function App() {
     document.getElementsByClassName('sidebar')[0].style.backgroundColor = `hsl(${h},${s}%,${l}%)`;
   }
 
+  const handleCopy = (refIndex) => {
+    navigator.clipboard.writeText(handleColorFormat(currentColors[refIndex]));
+    switch (refIndex) {
+      case (0): 
+      setColorBarOne('Copied!')
+      break;
+      case (1): 
+      setColorBarTwo('Copied!')
+      break;
+      case (2): 
+      setColorBarThree('Copied!')
+      break;
+      default: break;
+      }
+  }
+
+  const handleMouseEnter = (refIndex) => {
+    switch (refIndex) {
+      case (0): 
+      setColorBarOne('Double click to copy')
+      break;
+      case (1): 
+      setColorBarTwo('Double click to copy')
+      break;
+      case (2): 
+      setColorBarThree('Double click to copy')
+      break;
+      default: break;
+      }
+  }
+  const handleMouseLeave = (refIndex) => {
+    switch (refIndex) {
+      case (0): 
+      setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
+      break;
+      case (1): 
+      setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
+      break;
+      case (2): 
+      setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
+      break;
+      default: break;
+      }
+  }
+
   const applyColorScheme = () => {
     if (scheme === 'monochromatic') {
       console.log('changing to a monochromatic style')
@@ -108,6 +154,9 @@ function App() {
       const [primary,secondary,tertiary] = [hsl(hue,'100%',lightness[0]),hsl(hue,'100%',lightness[1]),hsl(hue,'100%',lightness[2])];
       console.log([primary,secondary,tertiary]);
       setCurrentColors([primary,secondary,tertiary]);
+      setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
+      setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
+      setColorBarThree(handleColorFormat(tertiaryColor.backgroundColor));
       setPrimaryColor({
         color: tertiary,
         backgroundColor: primary
@@ -165,27 +214,27 @@ function App() {
         </span>
         <div className="colorBar" ref={primaryRef} 
           style={primaryColor} 
-          onMouseEnter={() => handleMouseEnter(primaryRef)} 
-          onMouseLeave={() => handleMouseLeave(primaryRef,0)} 
-          onDoubleClick={() => handleCopy(primaryRef, 0)}>
-            {handleColorFormat(primaryColor.backgroundColor)}
+          onMouseEnter={() => handleMouseEnter(0)} 
+          onMouseLeave={() => handleMouseLeave(0)} 
+          onDoubleClick={() => handleCopy(0)}>
+            {colorBarOne}
         </div>
         <div className="colorBar" ref={secondaryRef} 
           style={secondaryColor} 
-          onMouseEnter={() => handleMouseEnter(secondaryRef)} 
-          onMouseLeave={() => handleMouseLeave(secondaryRef,1)} 
-          onDoubleClick={() => handleCopy(secondaryRef, 1)}>
+          onMouseEnter={() => handleMouseEnter(1)} 
+          onMouseLeave={() => handleMouseLeave(1)} 
+          onDoubleClick={() => handleCopy(1)}>
           <span>
-            {handleColorFormat(secondaryColor.backgroundColor)} 
+            {colorBarTwo} 
           </span>
         </div>
         <div className="colorBar" ref={tertiaryRef} 
           style={tertiaryColor} 
-          onMouseEnter={() => handleMouseEnter(tertiaryRef)} 
-          onMouseLeave={() => handleMouseLeave(tertiaryRef,2)} 
-          onDoubleClick={() => handleCopy(tertiaryRef, 2)}>
+          onMouseEnter={() => handleMouseEnter(2)} 
+          onMouseLeave={() => handleMouseLeave(2)} 
+          onDoubleClick={() => handleCopy(2)}>
           <span>
-            {handleColorFormat(tertiaryColor.backgroundColor)}
+            {colorBarThree}
           </span>
         </div>
       </div>
