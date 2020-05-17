@@ -154,7 +154,7 @@ function App() {
         Math.floor(Math.random()*50),
         Math.floor(Math.random()*20)+80];
       console.log(lightness);
-      const [primary,secondary,tertiary] = [hsl(hue,'100%',lightness[0]),hsl(hue,'100%',lightness[1]),hsl(hue,'100%',lightness[2])];
+      const [primary,secondary,tertiary] = [hsl(hue,'100%',lightness[0]),hsl(hue,'100%',lightness[1]),hsl(hue,'20%',lightness[2])];
       console.log([primary,secondary,tertiary]);
       setCurrentColors([primary,secondary,tertiary]);
       setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
@@ -175,17 +175,16 @@ function App() {
       console.log('changing to a monochromatic style')
       let hue = Math.floor(Math.random()*360);
         const hueOne = hue;
-        const hueTwo = hue <= 30 ? hue -30 + 360 : hue - 30;
-        const hueThree = hue >= 330 ? hue + 30 -360 : hue + 30;
+        const hueTwo = hue <= 180 ? hue + 180 : hue - 180;
       setPrimaryHue(hue);
       setSecondHandStyle({display: 'block', transform: `rotate(${hueTwo}deg)`});
-      setThirdHandStyle({display: 'block', transform: `rotate(${hueThree}deg)`});
+      // setThirdHandStyle({display: 'block', transform: `rotate(${hueThree}deg)`});
       const lightness = [
         Math.floor(Math.random()*50)+25,
         Math.floor(Math.random()*50),
         Math.floor(Math.random()*20)+80];
       console.log(lightness);
-      const [primary,secondary,tertiary] = [hsl(hueOne,'100%',lightness[0]),hsl(hueTwo,'100%',lightness[1]),hsl(hueThree,'100%',lightness[2])];
+      const [primary,secondary,tertiary] = [hsl(hueOne,'100%',lightness[0]),hsl(hueTwo,'100%',lightness[1]),hsl(hueOne,'20%',lightness[2])];
       console.log([primary,secondary,tertiary]);
       setCurrentColors([primary,secondary,tertiary]);
       setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
@@ -214,9 +213,9 @@ function App() {
       const lightness = [
         Math.floor(Math.random()*50)+25,
         Math.floor(Math.random()*50),
-        Math.floor(Math.random()*20)+80];
+        Math.floor(Math.random()*10)+90];
       console.log(lightness);
-      const [primary,secondary,tertiary] = [hsl(hueOne,'100%',lightness[0]),hsl(hueTwo,'100%',lightness[1]),hsl(hueThree,'100%',lightness[2])];
+      const [primary,secondary,tertiary] = [hsl(hueOne,'100%',lightness[0]),hsl(hueTwo,'100%',lightness[1]),hsl(hueThree,'20%',lightness[2])];
       console.log([primary,secondary,tertiary]);
       setCurrentColors([primary,secondary,tertiary]);
       setColorBarOne(handleColorFormat(primaryColor.backgroundColor));
