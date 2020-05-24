@@ -143,7 +143,7 @@
     transition: 2s ease;
     @include twelve-grid;
     .minisite {
-      grid-area: 2/2/12/9;
+      grid-area: 2/2/12/7;
       border-radius: 5px;
       overflow: hidden;
       box-shadow: 3px 4px rgba(80,80,80,0.4);
@@ -155,9 +155,17 @@
         justify-content: space-evenly;
         align-items: center;
         .genericLogo {
-          font-size: 40px;
+          font-size: 25px;
+          font-weight: bold;
         }
       }
+
+      .workSVG, .partySVG {
+          height: 80%;
+          width: 100%;
+          margin: auto;
+      }
+
       .section1 {
         display: flex;
         flex-direction: column;
@@ -171,6 +179,7 @@
           width: 140px;
           @include flex-center;
           border-radius: 10px;
+          cursor: default;
         }
       }
       .section2 {
@@ -181,8 +190,16 @@
           width: 25%;
         }
         .textContent {
-          font-size: 15px;
-          width: 70%
+          margin: 0;
+          h4 {
+            margin: 2px;
+          }
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          font-size: 13px;
+          width: 70%;
+          height: 100%;
         }
       }
       .section3 {
@@ -193,8 +210,16 @@
           width: 25%;
         }
         .textContent {
-          font-size: 15px;
+          margin: 0;
+          h4 {
+            margin: 2px;
+          }
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          font-size: 13px;
           width: 70%;
+          height: 100%;
         }
       }
       .footer {
@@ -205,7 +230,7 @@
       }
     }
     .hslWheelContainer {
-      grid-area: 2/9/6/13;
+      grid-area: 2/7/6/11;
       @include flex-center;
       .hslWheel {
         background-image: url('./hslwheel.png');
@@ -224,7 +249,7 @@
       height: 80%;
       width: 80%;
       margin: auto;
-      grid-area: 2/9/6/13;
+      grid-area: 2/7/6/11;
       position: relative;
       .colourHandOne, .colourHandTwo, .colourHandThree {
         bottom: 50%;

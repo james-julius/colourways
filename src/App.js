@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./App.scss";
-import hslWheel from "./hslwheel.png";
+import "./resources/App.scss";
+import hslWheel from "./resources//hslwheel.png";
 import convert from "color-convert";
 import openLockIcon from "./lockOpen.svg";
 import lockShutIcon from "./lockShut.svg";
@@ -13,6 +13,7 @@ function App() {
   const [primaryColor, setPrimaryColor] = useState({
     backgroundColor: "crimson",
   });
+  const [primarySVGFill, setPrimarySVGFill] = useState({fill: 'crimson'});
   const [secondaryColor, setSecondaryColor] = useState({
     backgroundColor: "rebeccapurple",
   });
@@ -207,6 +208,7 @@ function App() {
           backgroundColor: primary,
           color: tertiary,
         });
+        setPrimarySVGFill({fill: primary})
       }
       if (!colorBarLocks[1]) {
         setSecondaryColor({
@@ -222,6 +224,7 @@ function App() {
           backgroundColor: primary,
           color: tertiary,
         });
+        setPrimarySVGFill({fill: primary})
         setTertiaryColor({ backgroundColor: tertiary });
       }
     }
@@ -263,6 +266,7 @@ function App() {
           backgroundColor: primary,
           color: tertiary,
         });
+        setPrimarySVGFill({fill: primary})
       }
 
       if (!colorBarLocks[1]) {
@@ -317,6 +321,7 @@ function App() {
           backgroundColor: primary,
           color: tertiary,
         });
+        setPrimarySVGFill({fill: primary})
       }
 
       if (!colorBarLocks[1]) {
@@ -371,6 +376,7 @@ function App() {
           backgroundColor: primary,
           color: tertiary,
         });
+        setPrimarySVGFill({fill: primary})
       }
 
       if (!colorBarLocks[1]) {
@@ -421,6 +427,7 @@ function App() {
           color: tertiary,
           backgroundColor: primary,
         });
+        setPrimarySVGFill({fill: primary})
       }
       if (!colorBarLocks[1]) {
         setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
@@ -473,6 +480,7 @@ function App() {
         setPrimaryColor({
           backgroundColor: primary,
         });
+        setPrimarySVGFill({fill: primary})
       }
       if (!colorBarLocks[1]) {
         setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
@@ -523,6 +531,7 @@ function App() {
         setPrimaryColor({
           backgroundColor: primary,
         });
+        setPrimarySVGFill({fill: primary})
       }
       if (!colorBarLocks[1]) {
         setColorBarTwo(handleColorFormat(secondaryColor.backgroundColor));
@@ -676,7 +685,7 @@ function App() {
       <div className="main">
         <div className="minisite" style={tertiaryColor}>
           <div className="nav" style={primaryColor}>
-            <span className="genericLogo">∆</span>
+            <span className="genericLogo">WidgetMaker</span>
             <h4>Home</h4>
             <h4>How it works</h4>
             <h4>Meet the team</h4>
@@ -686,21 +695,22 @@ function App() {
             <span className="ctaButton" style={primaryColor}>Find out more</span>
           </div>
           <div className="section2" style={secondaryFontColor}>
-            <span className="contentBlock" style={primaryColor}>
-              Content Block
+            <span className="contentBlock" style={primarySVGFill}>
+              {/* <img className="workSVG" alt="A briefcase" src={Briefcase}/> */}
+              <svg className="workSVG" id="bold" enableBackground="new 0 0 24 24" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m15 6.5c-.552 0-1-.448-1-1v-1.5h-4v1.5c0 .552-.448 1-1 1s-1-.448-1-1v-1.5c0-1.103.897-2 2-2h4c1.103 0 2 .897 2 2v1.5c0 .552-.448 1-1 1z"/><path d="m12.71 15.38c-.18.07-.44.12-.71.12s-.53-.05-.77-.14l-11.23-3.74v7.63c0 1.52 1.23 2.75 2.75 2.75h18.5c1.52 0 2.75-1.23 2.75-2.75v-7.63z"/><path d="m24 7.75v2.29l-11.76 3.92c-.08.03-.16.04-.24.04s-.16-.01-.24-.04l-11.76-3.92v-2.29c0-1.52 1.23-2.75 2.75-2.75h18.5c1.52 0 2.75 1.23 2.75 2.75z"/></svg>
             </span>
-            <p className="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            <p className="textContent"><h4>Business Widgets</h4>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.</p>
+            ad minim veniam.</p>
           </div>
-          <div className="section3" style={secondaryFontColor}>
-            <p className="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          <div className="section3" style={primarySVGFill}>
+            <p className="textContent"><h4>Party Widgets</h4> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.</p>
-            <span className="contentBlock" style={primaryColor}>
-              Content Block
+            ad minim veniam.</p>
+            <span className="contentBlock">
+              {/* <img alt="Balloons" style={primaryColor} className="partySVG" src={Party}/> */}
+              <svg id="Capa_1" className="partySVG" enableBackground="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><g><path d="m198.723 253.712c4.142 0 7.5-3.358 7.5-7.5v-11.002c0-4.142-3.358-7.5-7.5-7.5s-7.5 3.358-7.5 7.5v11.003c0 4.142 3.358 7.499 7.5 7.499z"/><path d="m313.24 253.712c4.142 0 7.5-3.358 7.5-7.5v-11.002c0-4.142-3.358-7.5-7.5-7.5s-7.5 3.358-7.5 7.5v11.003c0 4.142 3.358 7.499 7.5 7.499z"/><path d="m276.731 250.813c2.722-3.123 2.396-7.86-.727-10.582-3.122-2.722-7.86-2.396-10.581.727-4.994 5.729-13.877 5.746-18.883 0-2.722-3.123-7.459-3.448-10.582-.727-3.122 2.721-3.448 7.459-.727 10.581 10.98 12.6 30.531 12.587 41.5.001z"/><path d="m35.952 325.584c2.688 3.151 7.422 3.526 10.574.837 3.151-2.688 3.526-7.422.837-10.574-13.874-16.261-24.143-34.679-28.917-51.862-12.242-44.069 9.143-89.538 48.247-109.225 33.636-16.973 74.265-12.189 103.124 12.051-37.333 47.976-24.84 114.505 10.836 161.917-9.402 13.867-22.209 25.395-38.225 29.844h-.001c-26.077 7.225-53.59-5.524-74.614-22.662-3.211-2.617-7.935-2.136-10.552 1.075-2.617 3.21-2.136 7.935 1.075 10.552 14.937 12.176 30.337 20.479 45.454 24.747l.952 11.525c1.304 15.778 14.527 27.576 29.914 27.576 6.1 0 9.655-1.722 15.51-3.17 31.803 68.492 99.526 99.627 102.722 101.064.001 0 .002 0 .003.001 2.134.799 4.069.993 6.16.009 2.957-1.327 70.882-32.453 102.745-101.073 5.847 1.447 9.416 3.171 15.51 3.17 15.396 0 28.61-11.807 29.914-27.576l.952-11.526c15.08-4.257 30.442-12.529 45.344-24.653 26.157-21.283 46.513-51.051 54.453-79.629 7.803-28.088 4.202-57.534-10.142-82.913-9.434-16.693-22.774-30.311-38.792-39.898 6.747-20.592 7.226-43.089 1.223-64.066-1.139-3.982-5.29-6.287-9.273-5.147-3.982 1.14-6.287 5.291-5.147 9.274 4.968 17.361 4.811 35.924-.343 53.077-4.388-1.854-9.048-3.467-13.468-4.697-35.042-9.726-72.697-1.074-99.889 21.989-16.4-16.009-37.579-26.707-61.496-29.981-.831-13.172-3.157-26.485-6.804-38.848 2.957-8.987 6.608-17.114 10.866-24.183 35.54-59.009 120.317-60.93 158.632-4.157 2.317 3.433 6.979 4.338 10.412 2.021s4.338-6.979 2.021-10.412c-46.756-69.277-152.742-63.228-189.792 15.889-29.256-62.438-102.35-80.377-155.668-48.263-22.293 13.427-39.077 34.407-47.26 59.076-7.395 22.294-7.38 46.355-.108 68.467-40.988 24.644-62.357 74.499-48.947 122.77 5.346 19.245 16.696 39.695 31.958 57.584zm246.576-182.113c39.114 11.516 67.593 47.73 67.593 90.322 0 26.01-10.401 59.644-33.915 89.927-39.182 48.649-88.254 44.502-124.761-5.637-16.729-22.918-27.395-51.61-29.292-76.451-5.066-66.102 56.724-116.684 120.375-98.161zm1.784 231.684c1.77 9.281-5.348 17.862-14.777 17.862h-27.107c-9.448 0-16.544-8.6-14.777-17.862l1.38-7.231c17.123 6.649 35.396 7.186 53.901 0zm-145.601 20.675c-9.103 2.528-18.243-3.857-19.02-13.256l-.606-7.338c19.66 1.959 37.102-3.382 51.915-14.466l3.285 6.638c4.19 8.468-.371 18.642-9.456 21.167zm26.13 8.308 4.003-1.112c18.179-5.05 27.237-25.393 18.885-42.271l-5.158-10.423c2.793-2.98 5.462-6.215 8.006-9.682 7.723 8.335 15.947 15.153 24.503 20.353l-2.164 11.34c-1.684 8.826.635 17.858 6.362 24.78 11.237 13.584 26.544 10.444 29.203 10.893v81.999c-19.472-11.17-61.051-39.263-83.64-85.877zm98.64 85.878v-81.999h6.054c18.868 0 33.04-17.176 29.511-35.673l-2.164-11.341c8.555-5.2 16.78-12.018 24.503-20.353 2.544 3.467 5.214 6.702 8.006 9.682l-5.158 10.423c-8.368 16.912.742 37.231 18.885 42.271l4.003 1.112c-22.587 46.613-64.167 74.707-83.64 85.878zm128.79-107.442c-.778 9.415-9.933 15.779-19.02 13.256-23.386-6.498 2.412.667-26.118-7.256-9.104-2.53-13.638-12.716-9.456-21.167l3.285-6.638c7.629 5.735 16.169 9.925 24.558 12.255 8.435 2.346 17.558 3.187 27.357 2.211zm92.497-190.106c12.372 21.891 15.479 47.29 8.748 71.517-7.032 25.312-25.987 52.904-49.467 72.01-20.989 17.077-48.505 29.802-74.514 22.578-16.043-4.463-28.838-15.997-38.226-29.845 36.178-47.388 48.126-113.998 10.836-161.916 22.969-19.313 55.066-27.272 85.864-18.729h.002c23.438 6.506 44.044 21.891 56.757 44.385zm-418.301-54.133c-12.313-40.843 4.441-85.431 41.58-107.799 44.568-26.843 102.365-12.503 129.212 32.071 10.832 17.986 16.689 40.898 18.257 62.048-27.117.091-54.677 10.52-75.685 30.968-31.296-26.596-75.752-33.407-113.364-17.288z"/></g></svg>
             </span>
           </div>
           <div className="footer" style={secondaryColor}>
