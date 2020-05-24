@@ -143,11 +143,12 @@
     transition: 2s ease;
     @include twelve-grid;
     .minisite {
-      grid-area: 2/3/12/8;
+      grid-area: 2/2/12/9;
       border-radius: 5px;
       overflow: hidden;
       box-shadow: 3px 4px rgba(80,80,80,0.4);
-      @include twelve-grid;
+      display: grid;
+      grid-template: repeat(24, 1fr) / repeat(12, 1fr);
       .nav {
         grid-area: 1/1/2/13;
         display: inline-flex;
@@ -159,27 +160,52 @@
       }
       .section1 {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         align-items: center;
-        grid-area: 3/2/6/12;
-        .contentBlock {
+        justify-content: center;
+        grid-area: 2/1/11/13;
+        background-color: red;
+        .ctaButton {
+          margin-top: 10px;
+          height: 40px;
+          width: 140px;
           @include flex-center;
-          height: 100%;
-          width: 44%;
+          border-radius: 10px;
         }
       }
       .section2 {
-        grid-area: 7/2/10/12;
+        grid-area: 12/2/16/12;
+        display: inline-flex;
+        justify-content: space-between;
+        .contentBlock {
+          width: 25%;
+        }
+        .textContent {
+          font-size: 15px;
+          width: 70%
+        }
+      }
+      .section3 {
+        display: inline-flex;
+        justify-content: space-between;
+        grid-area: 17/2/21/12;
+        .contentBlock {
+          width: 25%;
+        }
+        .textContent {
+          font-size: 15px;
+          width: 70%;
+        }
       }
       .footer {
-        grid-area: 12/1/13/13;
+        grid-area: 22/1/26/13;
         display: inline-flex;
         justify-content: space-evenly;
         font-size: 0.8rem;
       }
     }
     .hslWheelContainer {
-      grid-area: 2/8/6/12;
+      grid-area: 2/9/6/13;
       @include flex-center;
       .hslWheel {
         background-image: url('./hslwheel.png');
@@ -198,7 +224,7 @@
       height: 80%;
       width: 80%;
       margin: auto;
-      grid-area: 2/8/6/12;
+      grid-area: 2/9/6/13;
       position: relative;
       .colourHandOne, .colourHandTwo, .colourHandThree {
         bottom: 50%;

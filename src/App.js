@@ -678,21 +678,30 @@ function App() {
           <div className="nav" style={primaryColor}>
             <span className="genericLogo">∆</span>
             <h4>Home</h4>
-            <h4>About us</h4>
+            <h4>How it works</h4>
+            <h4>Meet the team</h4>
           </div>
-          <div className="section1">
-            <span className="contentBlock" style={primaryColor}>
-              Content Block
-            </span>
-            <span className="contentBlock" style={primaryColor}>
-              Content Block
-            </span>
+          <div className="section1" style={{...secondaryColor, secondaryFontColor}}>
+            <h2>We make the best widgets around</h2>
+            <span className="ctaButton" style={primaryColor}>Find out more</span>
           </div>
           <div className="section2" style={secondaryFontColor}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            <span className="contentBlock" style={primaryColor}>
+              Content Block
+            </span>
+            <p className="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            aliquip ex ea commodo consequat.</p>
+          </div>
+          <div className="section3" style={secondaryFontColor}>
+            <p className="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.</p>
+            <span className="contentBlock" style={primaryColor}>
+              Content Block
+            </span>
           </div>
           <div className="footer" style={secondaryColor}>
             <span className="footerSubContainer">
